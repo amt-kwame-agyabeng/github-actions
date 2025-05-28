@@ -1,4 +1,4 @@
-# Githuh actions workflow to run any test on push and also notify via slack
+
 name: Test and Notify
 
 on:
@@ -15,17 +15,17 @@ jobs:
       - name: Run tests
         run: python -m unittest discover tests
 
-  # notify:
-  #   needs: test
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - name: Notify on Slack
-  #       uses: rtCamp/action-slack-notify@v1
-  #       with:
-  #         slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-  #         slack_message: "Tests passed on main branch. :tada:"
-  #         slack_channel: "#test-notifications"
-  #         slack_username: "GitHub Actions"
-  #         slack_icon: ":github:"
-  #         slack_color: "good"
+  notify:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Notify on Slack
+        uses: rtCamp/action-slack-notify@v1
+        with:
+          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
+          slack_message: "Tests passed on main branch. :tada:"
+          slack_channel: "#test-notifications"
+          slack_username: "GitHub Actions"
+          slack_icon: ":github:"
+          slack_color: "good"
 
