@@ -20,12 +20,21 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Notify on Slack
-        uses: rtCamp/action-slack-notify@v1
+        uses: slackapi/slack-github-action@v1.25.0
         with:
-          slack_webhook_url: ${{ secrets.SLACK_WEBHOOK_URL }}
-          slack_message: "Tests passed on main branch. :tada:"
-          slack_channel: "#test-notifications"
-          slack_username: "GitHub Actions"
-          slack_icon: ":github:"
-          slack_color: "good"
+          payload: |
+            {
+              "text": "Tests passed on main branch. :tada:",
+              "blocks": [
+                {
+                  "type": "section",
+                  "text": {
+                    "type": "mrkdwn",
+                    "text": "Tests passed on main branch. :tada:"
+                  }
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
 
